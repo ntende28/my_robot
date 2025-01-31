@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+    <!-- Adding macros for computation of inertial matrix so as to create 
+    a close to realistic model -->
+    <!-- property macros describing dimensions of the wheels -->
+    <!-- assuming wheels to be of a hypothetical material with density 15 -->
+    <xacro:property name="wheel_density" value="15"/>
+    <xacro:property name="wheel_radius" value="0.15"/>
+    <xacro:property name="wheel_length" value="0.1"/>
+    <xacro:property name="pi" value="3.141592654"/>    
+    <xacro:property name="body_mass" value="10"/>
+
+    <xacro:property name="wheel_mass" value="${wheel_density*pi*wheel_radius*wheel_radius*wheel_length}"/>
+        
+    <xacro:property name="Iz_wheel" value="${0.5*wheel_mass*wheel_radius*wheel_radius}" />
+    <xacro:property name="I_wheel" value="${(1.0/12.0)*wheel_mass*(3.0*wheel_radius*wheel_radius+wheel_length*wheel_length)}"/>
+    
+    <!-- creating the inertial macros -->
+    <xacro:macro name="inertia_wheel">
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="${wheel_mass}"/>
+            <inertia ixx="${I_wheel}" ixy="0.0" ixz="0.0" iyy="${I_wheel}" iyz="0.0" izz="${Iz_wheel}"/>
+        </inertial>
+    </xacro:macro>
+    
+    <!-- </xacro:property> -->
+<!-- creating a xacro macro for the template of the wheels -->
+    <xacro:macro name="wheel" params="name x y file_path">
+        <link name="wheel_${name}_link">
+            <xacro:inertia_wheel />
+            
+            <visual name="">
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <mesh filename="${file_path}" scale="0.005 0.005 0.005"/>
+                </geometry>
+                <material name="black">
+                    <color rgba="0.0 0.0 0.0 1.0"/>
+                </material>
+            </visual>
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+                <geometry>
+                    <cylinder radius="0.15" length="0.1"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="wheel_${name}_joint" type="continuous">
+            <origin xyz="${x} ${y} .0" rpy="0 0.0 0.0"/>
+            <parent link="base_link"/>
+            <child link="wheel_${name}_link"/>
+            <axis xyz="0 1 0"/>
+            <limit effort="100.0" velocity="100.0"/>
+            <dynamics damping="1.0" friction="1.0"/>
+            
+        </joint>
+
+        <gazebo reference="wheel_${name}_link">
+            <mu1>0.2</mu1>
+            <mu2>0.2</mu2>
+            <material>Gazebo/Black</material>
+        </gazebo>
+
+    </xacro:macro>
+
+    <!-- Creating wheels using macros template -->
+    <xacro:wheel name="rear_right"  x="0.250" y ="0.40" file_path="package://my_mobile_robot/meshes/right_tire.stl" />
+    <xacro:wheel name="front_right" x="-0.250" y ="0.40" file_path="package://my_mobile_robot/meshes/right_tire.stl" />
+    <xacro:wheel name="front_left"  x="-0.250" y ="-0.40" file_path="package://my_mobile_robot/meshes/left_tire.stl" />
+    <xacro:wheel name="rear_left"   x="0.250" y ="-0.40" file_path="package://my_mobile_robot/meshes/left_tire.stl" />
+    <!-- wheel_${name}_joint -->
+
+
+    <!-- adding skid controller essential for teleop and navigation -->
+    <gazebo>
+        <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+            <updateRate>100.0</updateRate>
+            <robotNamespace>/</robotNamespace>
+            <leftFrontJoint>wheel_front_left_joint</leftFrontJoint>
+            <rightFrontJoint>wheel_front_right_joint</rightFrontJoint>
+            <leftRearJoint>wheel_rear_left_joint</leftRearJoint>
+            <rightRearJoint>wheel_rear_right_joint</rightRearJoint>
+            <wheelSeparation>0.8</wheelSeparation>
+            <wheelDiameter>${2 * wheel_radius}</wheelDiameter>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+            <torque>50</torque>
+            <!-- for sending command messages (twist) -->
+            <topicName>cmd_vel</topicName>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <publishWheelTF>true</publishWheelTF>
+            <publishOdom>true</publishOdom>
+            <publishWheelJointState>true</publishWheelJointState>
+            <broadcastTF>false</broadcastTF>
+            <covariance_x>0.0001</covariance_x>
+            <covariance_y>0.0001</covariance_y>
+            <covariance_yaw>0.01</covariance_yaw>
+        </plugin>
+    </gazebo>
+
+    <xacro:macro name="transmission_macro" params="name joint_name actuator_name">
+        <transmission name="${name}" >
+            <type>transmission_interface/SimpleTransmission</type>
+            <joint name="${joint_name}">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            </joint>
+            <actuator name="${actuator_name}">
+                <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+                <mechanicalReduction>1</mechanicalReduction>
+            </actuator>
+        </transmission>
+    </xacro:macro>
+
+    <!-- creating the transmissions for each joint  -->
+    <xacro:transmission_macro name="rear_right_transmission" joint_name="wheel_rear_right_joint" actuator_name="dc_motor_rr" />
+    <xacro:transmission_macro name="rear_left_transmission" joint_name="wheel_rear_left_joint" actuator_name="dc_motor_ll" />
+    <xacro:transmission_macro name="front_right_transmission" joint_name="wheel_front_right_joint" actuator_name="dc_motor_fr" />
+    <xacro:transmission_macro name="front_left_transmission" joint_name="wheel_front_left_joint" actuator_name="dc_motor_fl" />
+    
+    <!-- adding the ros control plugin: It creates a communication between the comand from a controller
+    to the joints -->
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/my_robot</robotNamespace>
+        </plugin>
+    </gazebo>
+
+
+</robot>
+
+

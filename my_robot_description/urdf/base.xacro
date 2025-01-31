@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+    <link name="base_footprint" />
+
+    <!-- body attributes -->
+    <xacro:property name="body_mass" value="2.0"/>
+
+    <!-- creating a resuable macro for the box inertial -->
+    <xacro:macro name="inertial_box" params="mass x y z">
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <mass value="${mass}" />
+            <inertia ixx="${(1/12) * mass * (y*y+z*z)}" ixy="0.0" ixz="0.0"
+                    iyy="${(1/12) * mass * (x*x+z*z)}" iyz="0.0"
+                    izz="${(1/12) * mass * (x*x+y*y)}" />
+        </inertial>
+    </xacro:macro>
+    
+    <link name="base_link">
+
+        <xacro:inertial_box mass="${body_mass}" x="0.8" y="0.7" z="0.1" />
+        
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.8 0.7 0.2"/>
+            </geometry>
+            <material name="">
+                <color rgba="1.0 0.0 0.0 1.0"/>
+                <texture filename=""/>
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <geometry>
+                <box size="0.0 0.0 0.0"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0.0 0.0 0.135" rpy="0.0 0.0 0.0"/>
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+        <axis xyz="0.0 0.0 0.0"/>
+    </joint>
+    
+    <gazebo reference="base_link">
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <material>Gazebo/Red</material>
+    </gazebo>
+
+</robot>
+
+
