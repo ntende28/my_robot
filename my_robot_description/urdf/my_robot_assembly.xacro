@@ -13,6 +13,9 @@
     
     <!-- Macros for importing the lidar -->
     <xacro:include filename="$(find my_robot_description)/urdf/lidar_sensor.xacro"/>
+
+   <!-- Macros for importing the camera -->
+    <xacro:include filename="$(find my_robot_description)/urdf/camera.xacro"/>
     
 </robot>
 

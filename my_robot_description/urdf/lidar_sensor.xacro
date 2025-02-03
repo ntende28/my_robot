@@ -69,11 +69,8 @@
         <mu2>0.2</mu2>
         <material>Gazebo/Blue</material>
     </gazebo>
+
      <!-- hokuyo -->
-    <gazebo reference="hokuyo">
-
-    </gazebo>
-
     <gazebo reference="hokuyo_lidar">
       <sensor type="ray" name="hokuyo_lidar_sensor">
         <always_on>true</always_on>
