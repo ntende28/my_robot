@@ -3,11 +3,8 @@ This is the workspace for a robot developed for tutorial learning for an introdu
 
 1. Build packages in your workspace/src folder.
 
-#Starting URDF Package
-To run the urdf package,use roslaunch my_robot_description my_robot.launch
+2. To run the urdf package,use roslaunch my_robot_description my_robot.launch
 
-#Starting the gazebo package
-To run the gazebo package, use roslaunch my_robot_gazebo gazebo.launch
+3. To run the gazebo package, use roslaunch my_robot_gazebo gazebo.launch
 
-#Starting the control package
-To run the control package, use roslaunch my_robot_control control.launch
+4. To run the control package, use roslaunch my_robot_control control.launch
