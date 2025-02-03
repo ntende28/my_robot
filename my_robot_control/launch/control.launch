@@ -8,7 +8,7 @@
 
 	<node pkg="teleop_twist_joy" name="teleop_twist_joy" type="teleop_node" respawn="true">
 		<rosparam command="load" file="$(find my_robot_control)/config/teleop_twist.yaml" />
-		<remap from="cmd_vel" to="joy_teleop/cmd_vel"/>
+		<remap from="cmd_vel" to="/cmd_vel"/>
 	</node>
 
 </launch>
