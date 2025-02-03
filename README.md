@@ -3,7 +3,7 @@ This is the workspace for a robot developed for tutorial learning for an introdu
 
 1. Build packages in your workspace/src folder.
 
-2. To run the urdf package,use roslaunch my_robot_description my_robot.launch
+2. To run the urdf package, use roslaunch my_robot_description my_robot.launch
 
 3. To run the gazebo package, use roslaunch my_robot_gazebo gazebo.launch
 
