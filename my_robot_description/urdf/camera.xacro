@@ -30,7 +30,7 @@
      <!-- camera -->
     <gazebo reference="camera_link">
         <sensor type="camera" name="camera_sensor">
-          <update_rate>30.0</update_rate>
+          <update_rate>10.0</update_rate>
           <camera name="head">
             <horizontal_fov>1.3962634</horizontal_fov>
             <image>
@@ -54,7 +54,7 @@
           <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
             <alwaysOn>true</alwaysOn>
             <updateRate>0.0</updateRate>
-            <cameraName>my_robot_camera</cameraName>
+            <cameraName>camera</cameraName>
             <imageTopicName>image_raw</imageTopicName>
             <cameraInfoTopicName>camera_info</cameraInfoTopicName>
             <frameName>camera_link</frameName>
