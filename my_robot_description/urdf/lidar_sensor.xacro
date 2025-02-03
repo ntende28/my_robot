@@ -4,18 +4,18 @@
     <link name="sensor_mount">
         <inertial>
             <mass value="1e-5" />
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0.16" rpy="0 0 0"/>
             <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
         </inertial>
         
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0.0" rpy="0 0 0"/>
             <material name="">
                 <color rgba="0.0 0.0 1.0 1.0"/>
                 <texture filename=""/>
             </material>
             <geometry>
-                <box size="0.1 0.1 0.1"/>
+                <box size="0.1 0.1 0.05"/>
             </geometry>
         </visual>
         
@@ -28,8 +28,8 @@
     </link>
 
     <joint name="sensor_mount_joint" type="fixed">
-        <origin xyz="0.0 0.0 0.1" rpy="0.0 0.0 0.0"/>
-        <parent link="base_link"/>
+        <origin xyz="0.0 0.0 0.15" rpy="0.0 0.0 0.0"/>
+        <parent link="chassis"/>
         <child link="sensor_mount"/>
         <axis xyz="0.0 0.0 0.0"/>
     </joint>
@@ -50,7 +50,7 @@
         </visual>
         
         <collision>
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0 0.0 0" rpy="0.0 0.0 0.0"/>
             <geometry>
                 <box size="0.1 0.1 0.1"/>
             </geometry>
@@ -59,7 +59,7 @@
 
     <joint name="hokuyo_joint" type="fixed">
         <axis xyz="0 1 0"/>
-        <origin xyz="0 0 0.08" rpy="0 0 0"/>
+        <origin xyz="0 0 0.05" rpy="0 0 0"/>
         <parent link="sensor_mount"/>
         <child link="hokuyo_lidar"/>
     </joint>

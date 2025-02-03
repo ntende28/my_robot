@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
-    <link name="base_footprint" />
+    <link name="base_link" />
 
     <!-- body attributes -->
     <xacro:property name="body_mass" value="2.0"/>
@@ -16,14 +16,14 @@
         </inertial>
     </xacro:macro>
     
-    <link name="base_link">
+    <link name="chassis">
 
         <xacro:inertial_box mass="${body_mass}" x="0.8" y="0.7" z="0.1" />
         
-        <visual name="">
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <visual>
+            <origin xyz="0.0 0.0 0.075" rpy="0.0 0.0 0.0"/>
             <geometry>
-                <box size="0.8 0.7 0.2"/>
+                <box size="0.8 0.7 0.15"/>
             </geometry>
             <material name="">
                 <color rgba="1.0 0.0 0.0 1.0"/>
@@ -31,21 +31,21 @@
             </material>
         </visual>
         <collision>
-            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+            <origin xyz="0.0 0.0 0.075" rpy="0.0 0.0 0.0"/>
             <geometry>
-                <box size="0.0 0.0 0.0"/>
+                <box size="0.8 0.7 0.15"/>
             </geometry>
         </collision>
     </link>
 
     <joint name="base_joint" type="fixed">
-        <origin xyz="0.0 0.0 0.135" rpy="0.0 0.0 0.0"/>
-        <parent link="base_footprint"/>
-        <child link="base_link"/>
+        <origin xyz="0.4 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <parent link="base_link"/>
+        <child link="chassis"/>
         <axis xyz="0.0 0.0 0.0"/>
     </joint>
     
-    <gazebo reference="base_link">
+    <gazebo reference="chassis">
         <mu1>0.2</mu1>
         <mu2>0.2</mu2>
         <material>Gazebo/Red</material>

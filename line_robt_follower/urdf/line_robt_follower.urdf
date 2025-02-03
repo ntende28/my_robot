@@ -6,7 +6,7 @@
   <link name="base_footprint" />
 
   <link
-    name="base_link">
+    name="chassis">
     <inertial>
       <origin
         xyz="-0.0073563 -3.9205E-16 -0.0071395"
@@ -27,7 +27,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://line_robt_follower/meshes/base_link.STL" scale="1 1 1" />
+          filename="package://line_robt_follower/meshes/chassis.STL" scale="1 1 1" />
       </geometry>
       <material
         name="">
@@ -41,7 +41,7 @@
         rpy="0 0 0" />
       <geometry>
         <mesh
-          filename="package://line_robt_follower/meshes/base_link.STL" scale="1 1 1" />
+          filename="package://line_robt_follower/meshes/chassis.STL" scale="1 1 1" />
       </geometry>
     </collision>
   </link>
@@ -49,7 +49,7 @@
   <joint name="base_joint" type="fixed">
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
     <parent link="base_footprint"/>
-    <child link="base_link"/>
+    <child link="chassis"/>
     <axis xyz="0.0 0.0 0.0"/>
   </joint>
 
@@ -100,7 +100,7 @@
       xyz="-0.033259 0.07575 -0.01375"
       rpy="-1.5708 0 0" />
     <parent
-      link="base_link" />
+      link="chassis" />
     <child
       link="left_wheel" />
     <axis
@@ -159,7 +159,7 @@
       xyz="-0.033259 -0.07575 -0.01375"
       rpy="-1.5708 0 0" />
     <parent
-      link="base_link" />
+      link="chassis" />
     <child
       link="right_wheel" />
     <axis
@@ -218,7 +218,7 @@
       xyz="0.072581 0 -0.0025"
       rpy="0 0 0" />
     <parent
-      link="base_link" />
+      link="chassis" />
     <child
       link="castor" />
     <axis

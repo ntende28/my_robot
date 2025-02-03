@@ -8,9 +8,6 @@
     <!-- importing the template for the robot wheels -->
     <xacro:include filename="$(find my_robot_description)/urdf/my_wheel.xacro"/>
 
-    <!-- importing all the related gazebo configurations -->
-    <!-- <xacro:include filename="$(find my_robot_description)/urdf/gazebo.xacro"/> -->
-    
     <!-- Macros for importing the lidar -->
     <xacro:include filename="$(find my_robot_description)/urdf/lidar_sensor.xacro"/>
 
