@@ -66,10 +66,10 @@
     </xacro:macro>
 
     <!-- Creating wheels using macros template -->
-    <xacro:wheel name="rear_right"  x="0.250" y ="0.40" file_path="package://my_mobile_robot/meshes/right_tire.stl" />
-    <xacro:wheel name="front_right" x="-0.250" y ="0.40" file_path="package://my_mobile_robot/meshes/right_tire.stl" />
-    <xacro:wheel name="front_left"  x="-0.250" y ="-0.40" file_path="package://my_mobile_robot/meshes/left_tire.stl" />
-    <xacro:wheel name="rear_left"   x="0.250" y ="-0.40" file_path="package://my_mobile_robot/meshes/left_tire.stl" />
+    <xacro:wheel name="rear_right"  x="0.250" y ="0.40" file_path="package://my_robot_description/meshes/right_tire.stl" />
+    <xacro:wheel name="front_right" x="-0.250" y ="0.40" file_path="package://my_robot_description/meshes/right_tire.stl" />
+    <xacro:wheel name="front_left"  x="-0.250" y ="-0.40" file_path="package://my_robot_description/meshes/left_tire.stl" />
+    <xacro:wheel name="rear_left"   x="0.250" y ="-0.40" file_path="package://my_robot_description/meshes/left_tire.stl" />
     <!-- wheel_${name}_joint -->
 
 
@@ -87,7 +87,8 @@
             <robotBaseFrame>base_footprint</robotBaseFrame>
             <torque>50</torque>
             <!-- for sending command messages (twist) -->
-            <topicName>cmd_vel</topicName>
+            <!-- <topicName>cmd_vel</topicName> -->
+            <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
             <odometryFrame>odom</odometryFrame>
             <publishWheelTF>true</publishWheelTF>
@@ -100,7 +101,7 @@
         </plugin>
     </gazebo>
 
-    <xacro:macro name="transmission_macro" params="name joint_name actuator_name">
+<!--     <xacro:macro name="transmission_macro" params="name joint_name actuator_name">
         <transmission name="${name}" >
             <type>transmission_interface/SimpleTransmission</type>
             <joint name="${joint_name}">
@@ -111,21 +112,21 @@
                 <mechanicalReduction>1</mechanicalReduction>
             </actuator>
         </transmission>
-    </xacro:macro>
+    </xacro:macro> -->
 
     <!-- creating the transmissions for each joint  -->
-    <xacro:transmission_macro name="rear_right_transmission" joint_name="wheel_rear_right_joint" actuator_name="dc_motor_rr" />
+<!--     <xacro:transmission_macro name="rear_right_transmission" joint_name="wheel_rear_right_joint" actuator_name="dc_motor_rr" />
     <xacro:transmission_macro name="rear_left_transmission" joint_name="wheel_rear_left_joint" actuator_name="dc_motor_ll" />
     <xacro:transmission_macro name="front_right_transmission" joint_name="wheel_front_right_joint" actuator_name="dc_motor_fr" />
-    <xacro:transmission_macro name="front_left_transmission" joint_name="wheel_front_left_joint" actuator_name="dc_motor_fl" />
+    <xacro:transmission_macro name="front_left_transmission" joint_name="wheel_front_left_joint" actuator_name="dc_motor_fl" /> -->
     
     <!-- adding the ros control plugin: It creates a communication between the comand from a controller
     to the joints -->
-    <gazebo>
+ <!--    <gazebo>
         <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
             <robotNamespace>/my_robot</robotNamespace>
         </plugin>
-    </gazebo>
+    </gazebo> -->
 
 
 </robot>

@@ -2,7 +2,7 @@
 axis_linear: 1 #linear x button map
 scale_linear: 0.75
 scale_linear_turbo: 0.75
-axis_angular: 3
+axis_angular: 2
 scale_angular: 0.75
 scale_angular_turbo: 1.0
 enable_button: 4
