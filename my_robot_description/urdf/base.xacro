@@ -18,12 +18,12 @@
     
     <link name="chassis">
 
-        <xacro:inertial_box mass="${body_mass}" x="0.8" y="0.7" z="0.1" />
+        <xacro:inertial_box mass="${body_mass}" x="0.5" y="0.3" z="0.1" />
         
         <visual>
             <origin xyz="0.0 0.0 0.075" rpy="0.0 0.0 0.0"/>
             <geometry>
-                <box size="0.8 0.7 0.15"/>
+                <box size="0.5 0.3 0.10"/>
             </geometry>
             <material name="">
                 <color rgba="1.0 0.0 0.0 1.0"/>
@@ -33,28 +33,28 @@
         <collision>
             <origin xyz="0.0 0.0 0.075" rpy="0.0 0.0 0.0"/>
             <geometry>
-                <box size="0.8 0.7 0.15"/>
+                <box size="0.5 0.3 0.10"/>
             </geometry>
         </collision>
     </link>
 
     <joint name="base_joint" type="fixed">
-        <origin xyz="0.4 0.0 0.0" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.25 0.0 0.0" rpy="0.0 0.0 0.0"/>
         <parent link="base_link"/>
         <child link="chassis"/>
         <axis xyz="0.0 0.0 0.0"/>
     </joint>
     
     <gazebo reference="chassis">
-        <mu1>0.2</mu1>
-        <mu2>0.2</mu2>
+        <mu1>0.1</mu1>
+        <mu2>0.1</mu2>
         <material>Gazebo/Red</material>
     </gazebo>
 
     <link name="imu_link" />
 
     <joint name="imu_joint" type="fixed">
-        <origin xyz="0.4 0.0 0.001" rpy="0.0 0.0 0.0"/>
+        <origin xyz="0.25 0.0 0.03" rpy="0.0 0.0 0.0"/>
         <parent link="base_link"/>
         <child link="imu_link"/>
         <axis xyz="0.0 0.0 0.0"/>
@@ -65,6 +65,7 @@
           <alwaysOn>true</alwaysOn>
           <bodyName>chassis</bodyName>
           <topicName>imu</topicName>
+          <frameName>chassis</frameName>
           <serviceName>imu_service</serviceName>
           <gaussianNoise>0.0</gaussianNoise>
           <updateRate>20.0</updateRate>

@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- start robot in gazebo -->
+    <include file="$(find my_robot_gazebo)/launch/house.launch">
+
+    <!-- launch robot URDF -->
+    <include file="$(find my_robot_description)/robot_description/launch/my_robot.launch"/>
+
+    <!-- start controller -->
+    <include file="$(find my_robot_control)/launch/control.launch" />
+
+    <!-- tf -->
+    <node pkg="tf" type="static_transform_publisher" name="base2nav" args="0 0 0 0 0 0 1 base_link nav_link 100" />  
+
+    <!-- Localization -->
+    <!-- <node name="Localization" pkg="bringup" type="localize" respawn="false" output="screen"/> -->
+
+    <!-- MAP -->
+    <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find bringup)/maps/home.yaml"/> -->
+  
+</launch>

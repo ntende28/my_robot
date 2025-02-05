@@ -33,7 +33,7 @@
             <visual name="">
                 <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0"/>
                 <geometry>
-                    <mesh filename="${file_path}" scale="0.005 0.005 0.005"/>
+                    <mesh filename="${file_path}" scale="0.003 0.003 0.003"/>
                 </geometry>
                 <material name="black">
                     <color rgba="0.0 0.0 0.0 1.0"/>
@@ -52,24 +52,24 @@
             <parent link="chassis"/>
             <child link="wheel_${name}_link"/>
             <axis xyz="0 1 0"/>
-            <limit effort="100.0" lower="-10.0" upper="10.0" velocity="10"/>
-            <dynamics damping="0.1" friction="0.9"/>
+            <limit effort="50.0" lower="-10.0" upper="10.0" velocity="10"/>
+            <dynamics damping="0.3" friction="1.0"/>
             
         </joint>
 
         <gazebo reference="wheel_${name}_link">
-            <mu1>0.2</mu1>
-            <mu2>0.2</mu2>
+            <mu1>0.1</mu1>
+            <mu2>0.1</mu2>
             <material>Gazebo/Black</material>
         </gazebo>
 
     </xacro:macro>
 
     <!-- Creating wheels using macros template -->
-    <xacro:wheel name="rear_right"  x="0.250" y ="0.40" file_path="package://my_robot_description/meshes/right_tire.stl" />
-    <xacro:wheel name="front_right" x="-0.250" y ="0.40" file_path="package://my_robot_description/meshes/right_tire.stl" />
-    <xacro:wheel name="front_left"  x="-0.250" y ="-0.40" file_path="package://my_robot_description/meshes/left_tire.stl" />
-    <xacro:wheel name="rear_left"   x="0.250" y ="-0.40" file_path="package://my_robot_description/meshes/left_tire.stl" />
+    <xacro:wheel name="rear_right"  x="0.150" y ="0.18" file_path="package://my_robot_description/meshes/right_tire.stl" />
+    <xacro:wheel name="front_right" x="-0.150" y ="0.18" file_path="package://my_robot_description/meshes/right_tire.stl" />
+    <xacro:wheel name="front_left"  x="-0.150" y ="-0.18" file_path="package://my_robot_description/meshes/left_tire.stl" />
+    <xacro:wheel name="rear_left"   x="0.150" y ="-0.18" file_path="package://my_robot_description/meshes/left_tire.stl" />
     <!-- wheel_${name}_joint -->
 
 
