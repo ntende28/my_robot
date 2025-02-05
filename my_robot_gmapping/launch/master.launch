@@ -13,7 +13,7 @@
     <node pkg="tf" type="static_transform_publisher" name="base2nav" args="0 0 0 0 0 0 1 base_link nav_link 100" />  
 
     <!-- Localization -->
-    <!-- <node name="Localization" pkg="bringup" type="localize" respawn="false" output="screen"/> -->
+    <node name="localization" pkg="my_robot_gmapping" type="localization" respawn="false" output="screen"/>
 
     <!-- MAP -->
     <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find bringup)/maps/home.yaml"/> -->

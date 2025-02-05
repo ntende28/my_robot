@@ -65,7 +65,7 @@
           <alwaysOn>true</alwaysOn>
           <bodyName>chassis</bodyName>
           <topicName>imu</topicName>
-          <frameName>chassis</frameName>
+          <frameName>imu_link</frameName>
           <serviceName>imu_service</serviceName>
           <gaussianNoise>0.0</gaussianNoise>
           <updateRate>20.0</updateRate>

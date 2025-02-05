@@ -4,14 +4,14 @@ Localization::Localization(ros::NodeHandle* nodehandle):nh_(*nodehandle){
     subscribe_name_ = nh_.subscribe("/model_name", 1, &Localization::NameCallBack,this);
 }
 
-void Localization::publish_lidar_link(){
+void Localization::publish_lidar_link() {
     static tf::TransformBroadcaster br;
     tf::Transform transform;
-    transform.setOrigin( tf::Vector3(0,0,0));
+    transform.setOrigin(tf::Vector3(0.25, 0, 0.20));
     tf::Quaternion q;
     q.setRPY(0, 3.142, 0);
     transform.setRotation(q);
-    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link" , robot_name_+"/Lidar"));
+    br.sendTransform(tf::StampedTransform(transform, ros::Time::now(), "base_link" , "hokuyo_lidar"));
 }
 
 // void Localization::getGPS(){
@@ -19,7 +19,7 @@ void Localization::publish_lidar_link(){
 // }
 
 void Localization::getIMU(){
-    subscribe_imu_ = nh_.subscribe(robot_name_+"/IMU/quaternion", 1, &Localization::IMUCallBack,this);
+    subscribe_imu_ = nh_.subscribe("/imu", 1, &Localization::IMUCallBack, this);
 }
 
 void Localization::NameCallBack(const std_msgs::String& msg){
@@ -67,8 +67,8 @@ void Localization::ToEulerAngles(float x, float y , float z , float w ) {
 void Localization::publish_base_link(){
     static tf::TransformBroadcaster br;
     tf::Transform transform;
-    transform.setOrigin( tf::Vector3(-current_x, current_z, current_y) );
-    ToEulerAngles(current_rot_x,current_rot_y,current_rot_z,current_rot_w);
+    transform.setOrigin(tf::Vector3(0.25, 0, 0));
+    ToEulerAngles(current_rot_x, current_rot_y, current_rot_z, current_rot_w);
     tf::Quaternion q;
     q.setRPY(0, 0, roll_);
     // transform.setRotation(tf::Quaternion(current_rot_x,current_rot_y,current_rot_z,current_rot_w));

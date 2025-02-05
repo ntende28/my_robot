@@ -3,10 +3,6 @@
 
 
 #include "ros/ros.h"
-// #include "webots_ros/Int32Stamped.h"
-// #include <webots_ros/set_float.h>
-// #include <webots_ros/set_int.h>
-// #include <webots_ros/robot_get_device_list.h>
 #include <std_msgs/String.h>
 #include <geometry_msgs/PointStamped.h>
 #include <sensor_msgs/Imu.h>
