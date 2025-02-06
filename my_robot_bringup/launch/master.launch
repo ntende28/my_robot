@@ -11,10 +11,13 @@
     <include file="$(find my_robot_control)/launch/control.launch" />
 
     <!-- tf -->
-    <node pkg="tf" type="static_transform_publisher" name="base2nav" args="0 0 0 0 0 0 1 base_link nav_link 100" />  
-
+    <node pkg="tf" type="static_transform_publisher" name="base2nav" args="0 0 0 0 0 0 1 base_link nav_link 100" />
+        
     <!-- Localization -->
     <node name="localization" pkg="my_robot_bringup" type="localization" respawn="false" output="screen"/>
+
+    <!-- odom publisher -->
+    <node pkg="my_robot_bringup" type="odom_publisher.py" name="odom_publisher" />
 
     <!-- MAP -->
     <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find bringup)/maps/home.yaml"/> -->

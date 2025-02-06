@@ -78,6 +78,7 @@
         <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
             <updateRate>100.0</updateRate>
             <robotNamespace>/</robotNamespace>
+            <ros><remap from="odom" to="/odom"/></ros>
             <leftFrontJoint>wheel_front_left_joint</leftFrontJoint>
             <rightFrontJoint>wheel_front_right_joint</rightFrontJoint>
             <leftRearJoint>wheel_rear_left_joint</leftRearJoint>
@@ -90,7 +91,7 @@
             <!-- <topicName>cmd_vel</topicName> -->
             <commandTopic>cmd_vel</commandTopic>
             <odometryTopic>odom</odometryTopic>
-            <odometryFrame>odom</odometryFrame>
+            <odometryFrame>odom_frame</odometryFrame>
             <publishWheelTF>true</publishWheelTF>
             <publishOdom>true</publishOdom>
             <publishWheelJointState>true</publishWheelJointState>

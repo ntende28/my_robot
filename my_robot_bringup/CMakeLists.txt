@@ -7,7 +7,11 @@ find_package(catkin REQUIRED COMPONENTS
   gmapping
   robot_state_publisher
   roscpp
+  rospy
   tf
+  nav_msgs
+  std_msgs
+  gazebo_msgs
 )
 
 ###################################
@@ -50,6 +54,11 @@ include_directories(
 add_executable(localization src/localization.cpp)
 target_link_libraries(localization ${catkin_LIBRARIES})
 
+# adding the odom publisher node
+catkin_install_python(PROGRAMS
+  scripts/odom_publisher.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 #############
 ## Install ##
