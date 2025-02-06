@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(my_robot_gmapping)
+project(my_robot_bringup)
 
 
 ## Find catkin macros and libraries
@@ -15,7 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
 ###################################
 catkin_package(
 #  INCLUDE_DIRS include
-#  LIBRARIES my_robot_gmapping
+#  LIBRARIES my_robot_bringup
 #  CATKIN_DEPENDS gmapping robot_state_publisher roscpp
 #  DEPENDS system_lib
 )
@@ -32,13 +32,13 @@ include_directories(
 )
 
 # include_directories(
-#   ${PROJECT_SOURCE_DIR}/src/my_robot/my_robot_gmapping/include
+#   ${PROJECT_SOURCE_DIR}/src/my_robot/my_robot_bringup/include
 # )
 
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
-#   src/${PROJECT_NAME}/my_robot_gmapping.cpp
+#   src/${PROJECT_NAME}/my_robot_bringup.cpp
 # )
 
 ## Add cmake target dependencies of the library
