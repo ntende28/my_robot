@@ -15,7 +15,11 @@ def main():
     
     # creating the publisher object with Odometry msg type, and queue - 10msgs
     odom_publisher = rospy.Publisher("/my_odom", Odometry, queue_size=10)
-
+    # Create a TransformBroadcaster object
+    tf_broadcaster = tf2_ros.TransformBroadcaster()
+    # Creating a transform_broadcaster for map → base_link
+    static_tf_broadcaster = tf2_ros.StaticTransformBroadcaster()  
+    
     # waiting for the service to start i.e. service -> gazebo/get_model_state
     rospy.wait_for_service("/gazebo/get_model_state")
     #creating a proxy to call the service of type GetModeState i.e. service -> gazebo/get_model_state
@@ -29,12 +33,20 @@ def main():
     # creating the model object
     model = GetModelStateRequest()
     model.model_name = 'my_robot_description'
-    
-    # Create a TransformBroadcaster object
-    tf_broadcaster = tf2_ros.TransformBroadcaster()
-  
+     
     # publishing frequency
     r = rospy.Rate(10)
+
+    # Static transform (map → odom)
+    static_transform = geometry_msgs.msg.TransformStamped()
+    static_transform.header.stamp = rospy.Time.now()
+    static_transform.header.frame_id = "map"
+    static_transform.child_frame_id = "odom"
+    static_transform.transform.translation.x = 0.0
+    static_transform.transform.translation.y = 0.0
+    static_transform.transform.translation.z = 0.0
+    static_transform.transform.rotation.w = 1.0
+    static_tf_broadcaster.sendTransform(static_transform)  # Publish once
 
     while not rospy.is_shutdown():
         # get result returned from the model by calling the proxy service
