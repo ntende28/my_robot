@@ -17,7 +17,7 @@
     <node name="localization" pkg="my_robot_bringup" type="localization" respawn="false" output="screen"/>
 
     <!-- odom publisher -->
-    <node pkg="my_robot_bringup" type="odom_publisher.py" name="odom_publisher" />
+    <node pkg="my_robot_bringup" type="odom_publisher.py" name="odom_publisher" output="screen" />
 
     <!-- MAP -->
     <!-- <node name="map_server" pkg="map_server" type="map_server" args="$(find bringup)/maps/home.yaml"/> -->

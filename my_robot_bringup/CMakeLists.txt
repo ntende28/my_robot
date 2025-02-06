@@ -4,7 +4,7 @@ project(my_robot_bringup)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
-  gmapping
+  # gmapping
   robot_state_publisher
   roscpp
   rospy
@@ -35,6 +35,10 @@ include_directories(
   ${catkin_INCLUDE_DIRS}
 )
 
+# catkin_install_python(PROGRAMS
+#   scripts/odom_publisher.py
+#   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+# )
 # include_directories(
 #   ${PROJECT_SOURCE_DIR}/src/my_robot/my_robot_bringup/include
 # )
@@ -55,8 +59,7 @@ add_executable(localization src/localization.cpp)
 target_link_libraries(localization ${catkin_LIBRARIES})
 
 # adding the odom publisher node
-catkin_install_python(PROGRAMS
-  scripts/odom_publisher.py
+catkin_install_python(PROGRAMS scripts/odom_publisher.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
