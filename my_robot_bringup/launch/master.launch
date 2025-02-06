@@ -22,4 +22,6 @@
     <!-- using map_server to load saved map! -->
     <node name="map_server" pkg="map_server" type="map_server" args="$(find my_robot_bringup)/maps/my_firstmap.yaml"/>
 
+    <!-- starting move_base node -->
+    <include file="$(find my_robot_navigation)/launch/move_base.launch"/>
 </launch>
