@@ -21,7 +21,7 @@ class SensorEnable{
         ros::NodeHandle nh_;
         std::string robot_name_;
         ros::Subscriber subscribe_name_;
-        ros::Subscriber subscribe_keyboard_;
+        // ros::Subscriber subscribe_keyboard_;
         // webots_ros::set_int srv_timestep;
         // webots_ros::set_float srv_inf;
         // webots_ros::set_float srv_zero;
@@ -33,10 +33,10 @@ class SensorEnable{
     public:
         SensorEnable(ros::NodeHandle* nodehandle);
         void NameCallBack(const std_msgs::String& msg);
-        void KeyboardCallBack(const webots_ros::Int32Stamped& msg);
+        // void KeyboardCallBack(const webots_ros::Int32Stamped& msg);
         void CmdvelCallBack(const geometry_msgs::Twist& msg);
         void Initialize_sensors(); // function for initializing sensors.
-        void teleop(int); // Function for teleoperation function.
+        // void teleop(int); // Function for teleoperation function.
 };
 
 #endif

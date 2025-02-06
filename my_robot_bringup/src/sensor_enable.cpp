@@ -51,110 +51,110 @@ void SensorEnable::Initialize_sensors(){
     }
 }
 
-void SensorEnable::KeyboardCallBack(const webots_ros::Int32Stamped& msg){
-    teleop(msg.data);
-}
+// void SensorEnable::KeyboardCallBack(const webots_ros::Int32Stamped& msg){
+//     teleop(msg.data);
+// }
 
-void SensorEnable::teleop(int key){
-    // UP 315
-    // DOWN 317
-    // LEFT 314
-    // RIGTH 316
-    // W 87
-    // A 65
-    // S 83
-    // D 68
-    switch(key) {
-      case 87 :
-        srv_act.request.value = 0.1;
-        vec_velocity_[4].call(srv_act); // linear actuator
-        srv_act.request.value = 0;
-        vec_velocity_[5].call(srv_act); // rotary actuator
-        break;
+// void SensorEnable::teleop(int key){
+//     // UP 315
+//     // DOWN 317
+//     // LEFT 314
+//     // RIGTH 316
+//     // W 87
+//     // A 65
+//     // S 83
+//     // D 68
+//     switch(key) {
+//       case 87 :
+//         srv_act.request.value = 0.1;
+//         vec_velocity_[4].call(srv_act); // linear actuator
+//         srv_act.request.value = 0;
+//         vec_velocity_[5].call(srv_act); // rotary actuator
+//         break;
 
-      case 83 :
-        srv_act.request.value = -0.1;
-        vec_velocity_[4].call(srv_act);
-        srv_act.request.value = 0;
-        vec_velocity_[5].call(srv_act);
-        break;
+//       case 83 :
+//         srv_act.request.value = -0.1;
+//         vec_velocity_[4].call(srv_act);
+//         srv_act.request.value = 0;
+//         vec_velocity_[5].call(srv_act);
+//         break;
 
-      case 65 :
-        srv_act.request.value = 0.4;
-        vec_velocity_[5].call(srv_act);
-        srv_act.request.value = 0;
-        vec_velocity_[4].call(srv_act);
-        break;
+//       case 65 :
+//         srv_act.request.value = 0.4;
+//         vec_velocity_[5].call(srv_act);
+//         srv_act.request.value = 0;
+//         vec_velocity_[4].call(srv_act);
+//         break;
 
-      case 68 :
-        srv_act.request.value = -0.4;
-        vec_velocity_[5].call(srv_act);
-        srv_act.request.value = 0;
-        vec_velocity_[4].call(srv_act);
-        break;
+//       case 68 :
+//         srv_act.request.value = -0.4;
+//         vec_velocity_[5].call(srv_act);
+//         srv_act.request.value = 0;
+//         vec_velocity_[4].call(srv_act);
+//         break;
 
-      case 315 :
-        srv_act.request.value = 2.0;
-        vec_velocity_[0].call(srv_act); 
-        vec_velocity_[1].call(srv_act);
-        vec_velocity_[2].call(srv_act);
-        vec_velocity_[3].call(srv_act);
+//       case 315 :
+//         srv_act.request.value = 2.0;
+//         vec_velocity_[0].call(srv_act); 
+//         vec_velocity_[1].call(srv_act);
+//         vec_velocity_[2].call(srv_act);
+//         vec_velocity_[3].call(srv_act);
 
-        srv_act.request.value = 0;
-        vec_velocity_[4].call(srv_act); // linear actuator
-        vec_velocity_[5].call(srv_act); // rotary actuator
-        break;
+//         srv_act.request.value = 0;
+//         vec_velocity_[4].call(srv_act); // linear actuator
+//         vec_velocity_[5].call(srv_act); // rotary actuator
+//         break;
 
-      case 317 :
-        srv_act.request.value = -2.0;
-        vec_velocity_[0].call(srv_act);
-        vec_velocity_[1].call(srv_act);
-        vec_velocity_[2].call(srv_act);
-        vec_velocity_[3].call(srv_act);
+//       case 317 :
+//         srv_act.request.value = -2.0;
+//         vec_velocity_[0].call(srv_act);
+//         vec_velocity_[1].call(srv_act);
+//         vec_velocity_[2].call(srv_act);
+//         vec_velocity_[3].call(srv_act);
 
-        srv_act.request.value = 0;
-        vec_velocity_[4].call(srv_act);
-        vec_velocity_[5].call(srv_act);
-        break;
+//         srv_act.request.value = 0;
+//         vec_velocity_[4].call(srv_act);
+//         vec_velocity_[5].call(srv_act);
+//         break;
 
-      case 316 :
-        srv_act.request.value = 1;
-        vec_velocity_[0].call(srv_act);
-        vec_velocity_[2].call(srv_act);
-        srv_act.request.value = -1;
-        vec_velocity_[1].call(srv_act);
-        vec_velocity_[3].call(srv_act);
+//       case 316 :
+//         srv_act.request.value = 1;
+//         vec_velocity_[0].call(srv_act);
+//         vec_velocity_[2].call(srv_act);
+//         srv_act.request.value = -1;
+//         vec_velocity_[1].call(srv_act);
+//         vec_velocity_[3].call(srv_act);
 
-        srv_act.request.value = 0;
-        vec_velocity_[4].call(srv_act);
-        vec_velocity_[5].call(srv_act);
-        break;
+//         srv_act.request.value = 0;
+//         vec_velocity_[4].call(srv_act);
+//         vec_velocity_[5].call(srv_act);
+//         break;
 
-      case 314 :
-        srv_act.request.value = -1;
-        vec_velocity_[0].call(srv_act);
-        vec_velocity_[2].call(srv_act);
-        srv_act.request.value = 1;
-        vec_velocity_[1].call(srv_act);
-        vec_velocity_[3].call(srv_act);
+//       case 314 :
+//         srv_act.request.value = -1;
+//         vec_velocity_[0].call(srv_act);
+//         vec_velocity_[2].call(srv_act);
+//         srv_act.request.value = 1;
+//         vec_velocity_[1].call(srv_act);
+//         vec_velocity_[3].call(srv_act);
 
-        srv_act.request.value = 0;
-        vec_velocity_[4].call(srv_act);
-        vec_velocity_[5].call(srv_act);
-        break;
+//         srv_act.request.value = 0;
+//         vec_velocity_[4].call(srv_act);
+//         vec_velocity_[5].call(srv_act);
+//         break;
 
-      default :
-        srv_act.request.value = 0;
-        vec_velocity_[0].call(srv_act);
-        vec_velocity_[1].call(srv_act);
-        vec_velocity_[2].call(srv_act);
-        vec_velocity_[3].call(srv_act);
-        vec_velocity_[4].call(srv_act);
-        vec_velocity_[5].call(srv_act);
-   }
-    std::cout<<key<<std::endl;
+//       default :
+//         srv_act.request.value = 0;
+//         vec_velocity_[0].call(srv_act);
+//         vec_velocity_[1].call(srv_act);
+//         vec_velocity_[2].call(srv_act);
+//         vec_velocity_[3].call(srv_act);
+//         vec_velocity_[4].call(srv_act);
+//         vec_velocity_[5].call(srv_act);
+//    }
+//     std::cout<<key<<std::endl;
 
-}
+// }
 
 int main(int argc, char **argv){
     ros::init(argc, argv, "sensor_enable");
