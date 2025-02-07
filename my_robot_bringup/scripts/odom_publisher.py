@@ -49,40 +49,42 @@ def main():
     static_tf_broadcaster.sendTransform(static_transform)  # Publish once
 
     while not rospy.is_shutdown():
-        # get result returned from the model by calling the proxy service
-        result = get_model_srv(model)
+        try:
+            # get result returned from the model by calling the proxy service
+            result = get_model_srv(model)
 
-        # set the odom message
-        odom.pose.pose = result.pose
-        odom.twist.twist = result.twist
+            # set the odom message
+            odom.pose.pose = result.pose
+            odom.twist.twist = result.twist
 
-        # updating the message headers
-        header.stamp = rospy.Time.now()
-        odom.header = header
+            # updating the message headers
+            header.stamp = rospy.Time.now()
+            odom.header = header
 
-        # publishing our message using the publisher object
-        odom_publisher.publish(odom)
-        
-        # Create the transform message
-        transform = geometry_msgs.msg.TransformStamped()
-        transform.header.stamp = header.stamp
-        transform.header.frame_id = "odom"  # Parent frame
-        transform.child_frame_id = "base_link"  # Child frame
-        
-        # set translation from odom data 
-        transform.transform.translation.x = result.pose.position.x
-        transform.transform.translation.y = result.pose.position.y
-        transform.transform.translation.z = result.pose.position.z
-        
-        # Set rotation from odometry data
-        transform.transform.rotation = result.pose.orientation
+            # publishing our message using the publisher object
+            odom_publisher.publish(odom)
+            
+            # Create the transform message
+            transform = geometry_msgs.msg.TransformStamped()
+            transform.header.stamp = header.stamp
+            transform.header.frame_id = "odom"  # Parent frame
+            transform.child_frame_id = "base_link"  # Child frame
+            
+            # set translation from odom data 
+            transform.transform.translation.x = result.pose.position.x
+            transform.transform.translation.y = result.pose.position.y
+            transform.transform.translation.z = result.pose.position.z
+            
+            # Set rotation from odometry data
+            transform.transform.rotation = result.pose.orientation
 
-        # Broadcast the transform
-        tf_broadcaster.sendTransform(transform)
+            # Broadcast the transform
+            tf_broadcaster.sendTransform(transform)
 
-        # creating a time delay
-        r.sleep()
-        # rospy.spin()
+            # creating a time delay
+            r.sleep()
+        except:
+            rospy.logwarn_once("Odom publisher node has been shutdown ...")
 
 if __name__ == "__main__":
     main()
