@@ -5,15 +5,15 @@
     <!-- property macros describing dimensions of the wheels -->
     <!-- assuming wheels to be of a hypothetical material with density 15 -->
     <xacro:property name="wheel_density" value="15"/>
-    <xacro:property name="wheel_radius" value="0.15"/>
-    <xacro:property name="wheel_length" value="0.1"/>
+    <xacro:property name="wheel_radius" value="0.1"/>
+    <xacro:property name="wheel_length" value="0.08"/>
     <xacro:property name="pi" value="3.141592654"/>    
     <xacro:property name="body_mass" value="10"/>
 
     <xacro:property name="wheel_mass" value="${wheel_density*pi*wheel_radius*wheel_radius*wheel_length}"/>
         
     <xacro:property name="Iz_wheel" value="${0.5*wheel_mass*wheel_radius*wheel_radius}" />
-    <xacro:property name="I_wheel" value="${(1.0/12.0)*wheel_mass*(3.0*wheel_radius*wheel_radius+wheel_length*wheel_length)}"/>
+    <xacro:property name="I_wheel" value="${(1.0/12.0)*wheel_mass*(3.0*wheel_radius*wheel_radius + wheel_length*wheel_length)}"/>
     
     <!-- creating the inertial macros -->
     <xacro:macro name="inertia_wheel">
@@ -52,14 +52,16 @@
             <parent link="chassis"/>
             <child link="wheel_${name}_link"/>
             <axis xyz="0 1 0"/>
-            <limit effort="50.0" lower="-10.0" upper="10.0" velocity="10"/>
-            <dynamics damping="0.3" friction="1.0"/>
+            <!-- <limit effort="10.0" velocity="1"/> -->
+            <!-- <dynamics damping="0.2" friction="0.1"/> -->
             
         </joint>
 
         <gazebo reference="wheel_${name}_link">
-            <mu1>0.1</mu1>
-            <mu2>0.1</mu2>
+            <mu1>0.4</mu1>
+            <mu2>0.4</mu2>
+            <kp>1000.0</kp> 
+            <kd>0.75</kd>  
             <material>Gazebo/Black</material>
         </gazebo>
 
@@ -76,17 +78,17 @@
     <!-- adding skid controller essential for teleop and navigation -->
     <gazebo>
         <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-            <updateRate>100.0</updateRate>
+            <updateRate>1000.0</updateRate>
             <robotNamespace>/</robotNamespace>
             <!-- <ros><remap from="odom" to="/odom"/></ros> -->
             <leftFrontJoint>wheel_front_left_joint</leftFrontJoint>
             <rightFrontJoint>wheel_front_right_joint</rightFrontJoint>
             <leftRearJoint>wheel_rear_left_joint</leftRearJoint>
             <rightRearJoint>wheel_rear_right_joint</rightRearJoint>
-            <wheelSeparation>0.8</wheelSeparation>
+            <wheelSeparation>0.6</wheelSeparation>
             <wheelDiameter>${2 * wheel_radius}</wheelDiameter>
             <robotBaseFrame>base_footprint</robotBaseFrame>
-            <torque>50</torque>
+            <torque>1000</torque>
             <!-- for sending command messages (twist) -->
             <!-- <topicName>cmd_vel</topicName> -->
             <commandTopic>cmd_vel</commandTopic>

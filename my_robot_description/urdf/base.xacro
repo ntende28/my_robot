@@ -46,8 +46,8 @@
     </joint>
     
     <gazebo reference="chassis">
-        <mu1>0.1</mu1>
-        <mu2>0.1</mu2>
+        <mu1>0.002</mu1>
+        <mu2>0.002</mu2>
         <material>Gazebo/Red</material>
     </gazebo>
 
