@@ -60,8 +60,8 @@
         <gazebo reference="wheel_${name}_link">
             <mu1>0.4</mu1>
             <mu2>0.4</mu2>
-            <kp>1000.0</kp> 
-            <kd>0.75</kd>  
+            <kp>950.0</kp> 
+            <kd>1.0</kd>  
             <material>Gazebo/Black</material>
         </gazebo>
 
@@ -78,7 +78,7 @@
     <!-- adding skid controller essential for teleop and navigation -->
     <gazebo>
         <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
-            <updateRate>1000.0</updateRate>
+            <updateRate>100.0</updateRate>
             <robotNamespace>/</robotNamespace>
             <!-- <ros><remap from="odom" to="/odom"/></ros> -->
             <leftFrontJoint>wheel_front_left_joint</leftFrontJoint>
@@ -88,7 +88,7 @@
             <wheelSeparation>0.6</wheelSeparation>
             <wheelDiameter>${2 * wheel_radius}</wheelDiameter>
             <robotBaseFrame>base_footprint</robotBaseFrame>
-            <torque>1000</torque>
+            <torque>900</torque>
             <!-- for sending command messages (twist) -->
             <!-- <topicName>cmd_vel</topicName> -->
             <commandTopic>cmd_vel</commandTopic>
